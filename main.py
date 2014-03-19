@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+#decode encode texto vindo do stream e então permitir acentos raw.decode('unicode-escape').encode('utf8')
 
 import sys  # para erros
 import json
@@ -40,7 +41,6 @@ class listener(StreamListener):
                             print tweet.decode('unicode-escape')
                             print screen_name.decode('unicode-escape')
                             print id_user
-                            #print geo
                             print coordinates
                             print place.decode('unicode-escape')
                             print city.decode('unicode-escape')
@@ -48,21 +48,21 @@ class listener(StreamListener):
                             print coordinatey
                             
                             saveFile = open('twitDBfiltered.csv','a')
-                            encoded_tweet = strftime("%H:%M:%S")+','+'"'+ tweet+'"' +','+ screen_name+',' + id_user+',' + coordinatex+','+coordinatey+','+city
+                            encoded_tweet = strftime("%H:%M:%S")+','+'"'+ tweetdecode('unicode-escape')+'"' +','+ screen_name+',' + id_user+',' + coordinatex+','+coordinatey+','+city
                             saveFile.write(encoded_tweet)
                             saveFile.write('\n')
                             saveFile.close()
+                           
         except:
             print 'dummy'
         try:
             if geo!='null':
                 saveFile = open('twitDB.csv','a')
                 encoded_tweet = strftime("%H:%M:%S")+','+'"'+ tweet+'"' +','+ screen_name+',' + id_user+',' + coordinatex+','+coordinatey+','+city
-                saveFile.write(encoded_tweet)
+                saveFile.write(encoded_tweet.decode('unicode-escape').encode('utf8'))
                 saveFile.write('\n')
                 saveFile.close()
-                #if city==('S\u00e3o Paulo'):
-                #print encoded_tweet.decode('unicode-escape')
+
             return True
         except BaseException, e:
             print 'failed ondata, ', str(e)
