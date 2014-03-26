@@ -2,7 +2,9 @@
 #decode encode texto vindo do stream e então permitir acentos raw.decode('unicode-escape').encode('utf8')
 
 import sys  # para erros
-import json
+import os.path # para verificar se o arquivo já existe
+import json #facilitar o parser
+
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
@@ -21,112 +23,109 @@ class listener(StreamListener):
 
     def on_data(self, data):
         try:
-            print "_________JSON____________"
+            #print "_________JSON____________"
             jsondata = json.loads(data)
-            #print data
+#            print data
            
-            if hasattr(jsondata, 'text'):
-                #print jsondata['text']
-                text=jsondata['text'] 
+            if 'text' in jsondata:
+                #print jsondata['text'].replace(',','')
+                text=jsondata['text'].replace(',','').strip('\'"') # pra não bagunçar meu csv no final 
             else:
                 text=''
             
-            if hasattr(jsondata, 'coordinates'):  # pode retornar none caso nao tenha sido definido
+            coordinate={}
+            if 'coordinates' in jsondata and jsondata['coordinates'] is not None:          
                 #print jsondata['coordinates']
-                if jsondata['coordinates']['coordinates'][0]:
-                    coordinate_x=jsondata['coordinates']['coordinates'][0]
-                else:
-                    coordinate_x=''
-                if jsondata['coordinates']['coordinates'][1]:
-                    coordinate_y=jsondata['coordinates']['coordinates'][1]
-                else:
-                    coordinate_y=''
-                if jsondata['coordinates']['type']:
-                    coordinate_type=jsondata['coordinates']['type']
-                else:
-                    coordinate_type=''
-
-            if hasattr(jsondata, 'created_at'):
-#                print jsondata['created_at'] 
+                coordinate['x']=jsondata['coordinates']['coordinates'][0]
+                coordinate['y']=jsondata['coordinates']['coordinates'][1]
+                coordinate['type']=jsondata['coordinates']['type']
+            else:
+                coordinate['x']=''
+                coordinate['y']=''
+                coordinate['type']=''
+            
+            if 'created_at' in jsondata and jsondata['created_at'] is not None:
+                #print jsondata['created_at'] 
                 created_at=jsondata['created_at'] 
             else:
                 created_at=''
 
-            if hasattr(jsondata, 'entities'):                
+            if 'entities' in jsondata and jsondata['entities'] is not None:                
                 #print jsondata['entities']
                 entities='True'
             else:
                 entities='False'   
 
-            if hasattr(jsondata, 'favorite_count'):                 
+            if 'favorite_count' in jsondata and jsondata['favorite_count'] is not None:
                 #print jsondata['favorite_count'] 
                 favorited_count=jsondata['favorite_count']
             else:
                 favorited_count='0'
 
-            if hasattr(jsondata, 'favorited'):                
+            if 'favorited' in jsondata and jsondata['favorited'] is not None:                
                 #print jsondata['favorited']
-                favorited = True
+                favorited = jsondata['favorited']
             else:
-                favorited = False
+                favorited = ''
  
-            if hasattr(jsondata, 'filter_level'):               
+            if 'filter_level' in jsondata and jsondata['filter_level'] is not None:
                 #print jsondata['filter_level']
                 filter_level = jsondata['filter_level']
             else:
                 filter_level = ''
 
-            if hasattr(jsondata, 'id'):                
+            if 'id' in jsondata and jsondata['id'] is not None:                
                 #print jsondata['id']
                 tweet_id = jsondata['id']
             else:
                 tweet_id = ''
 
-            if hasattr(jsondata, 'id_str'):            
+            if 'id_str' in jsondata and jsondata['id_str'] is not None:              
                 #print jsondata['id_str']
                 tweet_id_str = jsondata['id_str']
             else:
                 tweet_id_str = ''   
 
-            if hasattr(jsondata, 'in_reply_to_screen_name'):                
+            if 'in_reply_to_screen_name' in jsondata and jsondata['in_reply_to_screen_name'] is not None:
                 #print jsondata['in_reply_to_screen_name']
                 in_reply_to_name = jsondata['in_reply_to_screen_name']
                 in_reply=True
             else:
-                in_reply_to = ''
+                in_reply_to_name = ''
                 in_reply=False
 
-            if hasattr(jsondata, 'in_reply_to_status_id'):            
+            if 'in_reply_to_status_id' in jsondata and jsondata['in_reply_to_status_id'] is not None:
                 #print jsondata['in_reply_to_status_id']
                 in_reply_to_id = jsondata['in_reply_to_status_id']
             else:
                 in_reply_to_id = ''
 
-            if hasattr(jsondata, 'n_reply_to_status_id_str'):                  
+            if 'in_reply_to_status_id_str' in jsondata and jsondata['in_reply_to_status_id_str'] is not None:
                 #print jsondata['in_reply_to_status_id_str']
-                in_reply_to_id = jsondata['in_reply_to_status_id_str']
+                in_reply_to_id_str = jsondata['in_reply_to_status_id_str']
             else:
-                in_reply_to_id = ''                
+                in_reply_to_id_str = ''                
                 
-            if hasattr(jsondata, 'in_reply_to_user_id'):  
+            if 'in_reply_to_user_id' in jsondata and jsondata['in_reply_to_user_id'] is not None:
                 #print jsondata['in_reply_to_user_id']
                 in_reply_to_user_id = jsondata['in_reply_to_user_id']
             else:
                 in_reply_to_user_id = ''  
                 
-            if hasattr(jsondata, 'in_reply_to_user_id_str'):  
-                #print jsondata['in_reply_to_user_id']
+            if 'in_reply_to_user_id_str' in jsondata and jsondata['in_reply_to_user_id_str'] is not None:
+                #print jsondata['in_reply_to_user_id_str']
                 in_reply_to_user_id_str = jsondata['in_reply_to_user_id_str']
             else:
                 in_reply_to_user_id_str = ''                            
 
-            if hasattr(jsondata, 'lang'):              
+            if 'lang' in jsondata and jsondata['lang'] is not None:
                 #print jsondata['lang']
                 lang=jsondata['lang']
             else:
                 lang=''
 
-            if hasattr(jsondata, 'place'):  
+            if 'place' in jsondata and jsondata['place'] is not None:
+                #print jsondata['place']
                 place={}
                 if 'country' in jsondata['place']:
                     #print jsondata['place']['country']         
@@ -139,8 +138,8 @@ class listener(StreamListener):
                 else:
                     place['country_code']=''
                 if 'full_name' in jsondata['place'] : 
-                    #print jsondata['place']['full_name']
-                    place['full_name']=jsondata['place']['full_name']
+                    #print jsondata['place']['full_name'].replace(',','')
+                    place['full_name']=jsondata['place']['full_name'].replace(',','')
                 else:
                     place['full_name']=''
                 if 'id' in jsondata['place']: 
@@ -164,33 +163,33 @@ class listener(StreamListener):
                 else:
                     place['url']=''
                 
-            if hasattr(jsondata, 'possibly_sensitive'): #pode ser True False ou não ter
+            if 'possibly_sensitive' in jsondata and jsondata['possibly_sensitive'] is not None: #pode ser True False ou não ter
                 #print jsondata['possibly_sensitive']
                 possibly_sensitive=jsondata['possibly_sensitive']
             else:
                 possibly_sensitive=''
             
-            if hasattr(jsondata, 'possibly_sensitive'): 
-                print jsondata['retweet_count']
+            if 'retweet_count' in jsondata and jsondata['retweet_count'] is not None:
+                #print jsondata['retweet_count']
                 retweet_count=jsondata['retweet_count']
             else:
                 retweet_count=''
                 
-            if hasattr(jsondata, 'retweeted'): 
+            if 'retweeted' in jsondata and jsondata['retweeted'] is not None:
                 #print jsondata['retweeted']   
                 retweeted=jsondata['retweeted']
             else:
                 retweeted=''
             
-            if hasattr(jsondata, 'source'):
+            if 'source' in jsondata and jsondata['source'] is not None:
                 #print jsondata['source']
                 source=jsondata['source']
             else:
                 source=''
-                
-            if hasattr(jsondata, 'user'):
-                user={}              
-
+             
+            user={}    
+            if 'user' in jsondata and jsondata['user'] is not None:
+                #print jsondata['user']
                 if 'statuses_count' in jsondata['user']:
                     user['statuses_count']=jsondata['user']['statuses_count']
                 else:
@@ -235,20 +234,47 @@ class listener(StreamListener):
                     user['created_at']=jsondata['user']['created_at']
                 else:
                     user['created_at']=''                                                 
-           
         except:
             print 'dummy', sys.exc_info()[0]
+            
+        output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
+        write_db('db_tweet.csv',output)    
         return True
 
         
     def on_error(self, status):
         print 'status error',status
+        
+def write_db(file_name,content):
+    try:
+        saveFile = open(file_name,'a')
+        saveFile.write(content.encode('utf8'))
+        saveFile.write('\n')
+        saveFile.close()
+    except:
+        print content
+        print 'Problema no content', sys.exc_info()[0]        
     
-
+def file_exist(file_path):
+    return os.path.isfile(file_path)
+        
+def cabecalho(file_name):
+    try:
+        saveFile = open(file_name,'a')
+        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url'],possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        saveFile.write(cabecalho)
+        saveFile.write('\n')
+        saveFile.close()
+    except:
+        print 'Problema no cabeçalho', sys.exc_info()[0]
+        
+        
 def main():
     auth = OAuthHandler(ckey, csecret)
     auth.set_access_token(atoken, asecret)
     twitterStream = Stream(auth, listener())
+    if not file_exist('db_tweet.csv'):
+        cabecalho('db_tweet.csv')
     twitterStream.filter(locations=[-46.825390,-24.008381,-46.364830,-23.357611])
     #SOUTHWEST primeiro, lon/lat
     #estado de sao paulo location=[-53.109612,-25.250469,-44.160561,-19.779320]
