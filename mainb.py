@@ -29,7 +29,7 @@ class listener(StreamListener):
            
             if 'text' in jsondata:
                 #print jsondata['text'].replace(',','')
-                text=jsondata['text'].replace(',','').strip('\'"') # pra não bagunçar meu csv no final 
+                text=strip(jsondata['text'])
             else:
                 text=''
             
@@ -88,7 +88,7 @@ class listener(StreamListener):
 
             if 'in_reply_to_screen_name' in jsondata and jsondata['in_reply_to_screen_name'] is not None:
                 #print jsondata['in_reply_to_screen_name']
-                in_reply_to_name = jsondata['in_reply_to_screen_name']
+                in_reply_to_name = strip(jsondata['in_reply_to_screen_name'])
                 in_reply=True
             else:
                 in_reply_to_name = ''
@@ -139,7 +139,7 @@ class listener(StreamListener):
                     place['country_code']=''
                 if 'full_name' in jsondata['place'] : 
                     #print jsondata['place']['full_name'].replace(',','')
-                    place['full_name']=jsondata['place']['full_name'].replace(',','')
+                    place['full_name']=strip(jsondata['place']['full_name'])
                 else:
                     place['full_name']=''
                 if 'id' in jsondata['place']: 
@@ -149,7 +149,7 @@ class listener(StreamListener):
                     place['id']=''
                 if 'name' in jsondata['place']:  
                     #print jsondata['place']['name']       
-                    place['name']=jsondata['place']['name']
+                    place['name']=strip(jsondata['place']['name'])
                 else:
                     place['name']=''
                 if 'place_type' in jsondata['place']:   
@@ -183,7 +183,7 @@ class listener(StreamListener):
             
             if 'source' in jsondata and jsondata['source'] is not None:
                 #print jsondata['source']
-                source=jsondata['source']
+                source=strip(jsondata['source'])
             else:
                 source=''
              
@@ -201,7 +201,7 @@ class listener(StreamListener):
                     user['favourites_count']=''               
 
                 if 'name' in jsondata['user']:
-                    user['name']=jsondata['user']['name']
+                    user['name']=strip(jsondata['user']['name'])
                 else:
                     user['name']='' 
 
@@ -216,7 +216,7 @@ class listener(StreamListener):
                     user['followers_count']=''                    
             
                 if 'screen_name' in jsondata['user']:
-                    user['screen_name']=jsondata['user']['screen_name']
+                    user['screen_name']=jsondata['user']['screen_name'] 
                 else:
                     user['screen_name']=''  
                     
@@ -254,14 +254,17 @@ def write_db(file_name,content):
     except:
         print content
         print 'Problema no content', sys.exc_info()[0]        
-    
+
+def strip(data):
+    return data.replace(',',' ').replace("'",' ').replace('"',' ').replace('%',' ').replace('\t', '').replace('\n', '').replace('\r', '').replace('\v', '')
+        
 def file_exist(file_path):
     return os.path.isfile(file_path)
         
 def cabecalho(file_name):
     try:
         saveFile = open(file_name,'a')
-        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url'],possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
         saveFile.write(cabecalho)
         saveFile.write('\n')
         saveFile.close()
