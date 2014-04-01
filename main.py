@@ -243,7 +243,7 @@ class listener(StreamListener):
         except:
             print 'dummy', sys.exc_info()[0]
             
-        if filtro(lang, place['name']):               
+        if 'name' in place and filtro(lang, place['name']):               
             output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
             write_db('db_tweet.csv',output+termos(text))    
         return True
