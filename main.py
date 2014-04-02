@@ -22,7 +22,7 @@ ics=[ic,ic2,ic3]
 dic0=['[c|C]arro', '[a|A]utom.*vel', '[v|V]e*.culo', '[v|V]iatura', '[c|C]aminh.*o', '[c|C]arreta', '[c|C]aminhonete', '[C|c|k|K]ombi', '[f|F]usca']
 dic1=['[o|ô|O|Ô]nibus', '[l|L]ota[ç|c][a|ã]o', '[a|A]rticulado', '[b|B]iarticulado', '[c|C]oletivo', '[b|B]us$']
 dic2=['[b|B]icicleta', '[B|b]+i(ke|ci)', '[c|C]iclovia', '[c|C]iclofaixa', '[b|B]iciclet[a|á]rio', '[p|P]araciclo', '[p|P]edalar', '[p|P]edal']
-dic3=['[m|M]etr[o|ô]']
+dic3=['[m|M]etr[o|ô]','[t|T]rem']
 dic=[dic0,dic1,dic2,dic3]
 
 class listener(StreamListener):
@@ -244,7 +244,7 @@ class listener(StreamListener):
             print 'dummy', sys.exc_info()[0]
             
         if 'name' in place and filtro(lang, place['name']):               
-            output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
+            output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +',' + str(created_at.split(' ')[0]) +','+ str(created_at.split(' ')[1]) +',' + str(created_at.split(' ')[2]) +','+ str(created_at.split(' ')[3]) +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
             write_db('db_tweet.csv',output+termos(text))    
         return True
 
@@ -271,9 +271,9 @@ def file_exist(file_path):
 def cabecalho(file_name):
     try:
         saveFile = open(file_name,'a')
-        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,dia_semana,mes,dia,hora,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
         cabecalho+="" 
-        cabecalho+=",carro,automovel,veiculo,viatura,caminhao,carreta,caminhonete,combi,fusca,onibus,lotacao,articulado,biarticulado,coletivo,bus,bicicleta,bici_bike,ciclovia,ciclofaixa,bicicletario,paraciclo,pedalar,pedal,metro"
+        cabecalho+=",carro,automovel,veiculo,viatura,caminhao,carreta,caminhonete,kombi,fusca,onibus,lotacao,articulado,biarticulado,coletivo,bus,bicicleta,bici_bike,ciclovia,ciclofaixa,bicicletario,paraciclo,pedalar,pedal,metro,trem"
         saveFile.write(cabecalho)
         saveFile.write('\n')
         saveFile.close()
