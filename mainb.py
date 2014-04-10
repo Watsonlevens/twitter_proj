@@ -4,20 +4,27 @@
 import sys  # para erros
 import os.path # para verificar se o arquivo já existe
 import json #facilitar o parser
+import re
 
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from time import gmtime, strftime
+import tweepy
 
 ckey = '82WTLmzBPZJX95Cx2DvcWA'
 csecret = 'mpQttzhzeR3UlnnUX8qpr2Yd9CxgZNBuf9suQ8TCMFE'
 atoken = '97679915-vngv6Jo3w7zseDiYRfajXW74nnr6E4kpSyLKxK5LV'
 asecret = 'FuNHIwaMrjc6ixjwJusXqn3GMJc93w06yabzcE7IhmBI9'
-dic=['acidente','batida','alagamento',]
-dic2= ['ciclismo', 'ciclovia', 'bike', ' bici ', 'pedal']
-dic3= ['metro ', 'lotado'] 
-dics=[dic,dic2,dic3]
+ic=['acidente','batida','alagamento',]
+ic2= ['ciclismo', 'ciclovia', 'bike', ' bici ', 'pedal']
+ic3= ['metro ', 'lotado'] 
+ics=[ic,ic2,ic3]
+dic0=['[c|C]arro', '[a|A]utom.*vel', '[v|V]e*.culo', '[v|V]iatura', '[c|C]aminh.*o', '[c|C]arreta', '[c|C]aminhonete', '[C|c|k|K]ombi', '[f|F]usca']
+dic1=['[o|ô|O|Ô]nibus', '[l|L]ota[ç|c][a|ã]o', '[a|A]rticulado', '[b|B]iarticulado', '[c|C]oletivo', '[b|B]us$']
+dic2=['[b|B]icicleta', '[B|b]+i(ke|ci)', '[c|C]iclovia', '[c|C]iclofaixa', '[b|B]iciclet[a|á]rio', '[p|P]araciclo', '[p|P]edalar', '[p|P]edal']
+dic3=['[m|M]etr[o|ô]','[t|T]rem']
+dic=[dic0,dic1,dic2,dic3]
 
 class listener(StreamListener):
 
@@ -237,8 +244,9 @@ class listener(StreamListener):
         except:
             print 'dummy', sys.exc_info()[0]
             
-        output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
-        write_db('db_tweet.csv',output)    
+        if 'name' in place and filtro(lang, place['name']):               
+            output = text +','+ str(coordinate['x']) +','+ str(coordinate['y']) +','+ coordinate['type'] +','+ created_at +',' + str(created_at.split(' ')[0]) +','+ str(created_at.split(' ')[1]) +',' + str(created_at.split(' ')[2]) +','+ str(created_at.split(' ')[3]) +','+ str(entities) +','+ str(favorited_count) +','+ str(favorited) +','+ filter_level +','+ str(tweet_id) +','+ str(tweet_id_str) +','+ str(in_reply_to_name) +','+ str(in_reply) +','+ str(in_reply_to_id )+','+ in_reply_to_id_str +','+ str(in_reply_to_user_id) +','+ in_reply_to_user_id_str +','+ lang +','+ place['country'] +','+ place['country_code'] +','+ place['full_name'] +','+ str(place['id']) +','+ place['name'] +','+ place['place_type'] +','+ place['url'] +','+ str(possibly_sensitive) +','+ str(retweet_count) +','+ str(retweeted) +','+ source +','+ str(user['statuses_count']) +','+ str(user['favourites_count']) +','+ user['name'] +','+ str(user['verified']) +','+ str(user['followers_count']) +','+ user['screen_name'] +','+ str(user['friends_count']) +','+ user['lang'] +','+ user['created_at']
+            write_db('db_tweet.csv',output+termos(text))    
         return True
 
         
@@ -264,21 +272,228 @@ def file_exist(file_path):
 def cabecalho(file_name):
     try:
         saveFile = open(file_name,'a')
-        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        cabecalho = "text,coordinate_x,coordinate_y,coordinat_type,tweet_created_at,dia_semana,mes,dia,hora,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,possibly_sensitive,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        cabecalho+="" 
+        cabecalho+=",carro,automovel,veiculo,viatura,caminhao,carreta,caminhonete,kombi,fusca,onibus,lotacao,articulado,biarticulado,coletivo,bus,bicicleta,bici_bike,ciclovia,ciclofaixa,bicicletario,paraciclo,pedalar,pedal,metro,trem"
         saveFile.write(cabecalho)
         saveFile.write('\n')
         saveFile.close()
     except:
-        print 'Problema no cabeçalho', sys.exc_info()[0]
+        print 'Problema no cabeçalho ', sys.exc_info()[0]
+
+def cabecalho2(file_name):
+    try:
+        saveFile = open(file_name,'a')
+        cabecalho = "text,coordinate_x,coordinate_y,coordinate_type,tweet_created_at,dia_semana,mes,dia,hora,tweet_entities,tweet_favorited_count,tweet_favorited,filter_level,tweet_id,tweet_id_str,in_reply_to_name,in_reply,in_reply_to_id,in_reply_to_id_str,in_reply_to_user_id,in_reply_to_user_id_str,tweet_lang,tweet_country,tweet_country_code,tweet_place_full_name,tweet_place_id,tweet_place_name,tweet_place_type,tweet_place_url,retweet_count,retweeted,source,user_statuses_count,user_favourites_count,user_name,user_verified,user_followers_count,user_screen_name,user_friends_count,user_lang,user_created_at"
+        cabecalho+="" 
+        cabecalho+=",carro,automovel,veiculo,viatura,caminhao,carreta,caminhonete,kombi,fusca,onibus,lotacao,articulado,biarticulado,coletivo,bus,bicicleta,bici_bike,ciclovia,ciclofaixa,bicicletario,paraciclo,pedalar,pedal,metro,trem"
+        saveFile.write(cabecalho)
+        saveFile.write('\n')
+        saveFile.close()
+    except:
+        print 'Problema no cabeçalho ', sys.exc_info()[0]
+
+def filtro(lang, place_name):
+    lang_ban=['und']
+    cidades=['Brasil','Brásil','São Paulo', 'Sao Paulo', 'Brazil']
+    
+    if lang in lang_ban: 
+        return False
+    else:
+        if place_name.encode('utf8') in cidades: 
+            print ('salvando '+place_name)
+            return True
+        else:
+            print (place_name)
+            return False
+
+def termos(tweet):
+    output=""
+    for d in dic:
+        for termo in d:
+            if re.search(termo,tweet):
+                print termo
+                output+=",1"
+            else:
+                output+=",0"           
+    return output
+
+
+def search(api):
+    #-23.547778, -46.635833 50 km de raio
+    for tweet in tweepy.Cursor(api.search,
+                           #q="google",
+                           count=100,
+                           geocode="-23.547778,-46.635833,50km",
+                           result_type="recent",
+                           include_entities=True,
+                           lang="pt").items(10):
+        text=''
+        coordinate={}
+        coordinate['x']=''
+        coordinate['y']=''
+        coordinate['type']=''
+        created_at=''
+        entities='False'
+        favorited_count='0'
+        favorited=''
+        filter_level=''
+        tweet_id=''
+        tweet_id_str=''
+        in_reply_to_name=''
+        in_reply='False'
+        in_reply_to_id=''
+        in_reply_to_id_str=''
+        in_reply_to_user_id=''
+        in_reply_to_user_id_str=''
+        lang=''
+        place={}
+        place['country']=''
+        place['country_code']=''
+        place['full_name']=''
+        place['id']=''
+        place['name']=''
+        place['place_type']=''
+        place['url']=''
+        retweet_count=''
+        retweeted=''
+        source=''
+        user={}
+        user['statuses_count']=''
+        user['favourites_count']=''
+        user['name']=''
+        user['verified']=''
+        user['followers_count']=''
+        user['screen_name']=''
+        user['friends_count']=''
+        user['lang']=''
+        user['created_at']=''
+        metadata={}
+        metadata['result_type']=''
+        metadata['iso_language_code']='' 
+               
+        #print '\n'
+        if tweet.place is not None:
+            #print tweet.place
+            place['country']=tweet.place.country
+            place['country_code']=tweet.place.country_code
+            place['full_name']=strip(tweet.place.full_name)
+            place['id']=tweet.place.id
+            place['name']=strip(tweet.place.name)
+            place['place_type']=tweet.place.place_type
+            place['url']=strip(tweet.place.url)
+        if tweet.user is not None:#mesma coisa que author
+            #print tweet.user
+            user['statuses_count']=tweet.user.statuses_count
+            user['favourites_count']=tweet.user.favourites_count
+            user['name']=strip(tweet.user.name)
+            user['verified']=tweet.user.verified
+            user['followers_count']=tweet.user.followers_count
+            user['screen_name']=strip(tweet.user.screen_name)
+            user['friends_count']=tweet.user.friends_count
+            user['lang']=tweet.user.lang
+            user['created_at']=tweet.user.created_at
+            #print user
+        if tweet.coordinates is not None:
+            #print tweet.coordinates
+            coordinate['x']=tweet.coordinates['coordinates'][0]
+            coordinate['y']=tweet.coordinates['coordinates'][1]
+            coordinate['type']=tweet.coordinates['type']
+            #print coordinate
+        if tweet.created_at is not None:
+            #print tweet.created_at.weekday()
+            #print tweet.created_at.month
+            #print tweet.created_at.day
+            #print tweet.created_at.hour
+            created_at=tweet.created_at
+            #print created_at.date(),created_at.time()
+            #print dir(created_at)
+        if tweet.entities is not None:
+            #print tweet.entities
+            entities='True'
+        if tweet.favorite_count is not None:
+            #print tweet.favorite_count
+            favorited_count=tweet.favorite_count
+        if tweet.favorited is not None:
+            #print tweet.favorited
+            favorited=tweet.favorited
+        if tweet.id is not None:
+            #print tweet.id
+            tweet_id=tweet.id
+        if tweet.id_str is not None:
+            #print tweet.id_str
+            tweet_id_str=tweet.id_str
+        if tweet.in_reply_to_screen_name is not None:
+            #print tweet.in_reply_to_screen_name
+            in_reply_to_name=strip(tweet.in_reply_to_screen_name)
+            in_reply='True' 
+        if tweet.in_reply_to_status_id is not None:
+            #print tweet.in_reply_to_status_id
+            in_reply_to_id=tweet.in_reply_to_status_id
+        if tweet.in_reply_to_status_id_str is not None:
+            #print tweet.in_reply_to_status_id_str
+            in_reply_to_id_str=tweet.in_reply_to_status_id_str
+        if tweet.in_reply_to_user_id        is not None:
+            #print tweet.in_reply_to_user_id
+            in_reply_to_user_id=tweet.in_reply_to_user_id 
+        if tweet.in_reply_to_user_id_str is not None:
+            #print tweet.in_reply_to_user_id_str 
+            in_reply_to_user_id_str=tweet.in_reply_to_user_id_str         
+    
+        if tweet.lang is not None:
+            #print tweet.lang  
+            lang=tweet.lang
+        if tweet.metadata is not None:
+            #print tweet.metadata['result_type']
+            #print tweet.metadata['iso_language_code']
+            metadata['result_type']=tweet.metadata['result_type']
+            metadata['result_type']=tweet.metadata['iso_language_code']
+        if tweet.place is not None:
+            #print tweet.place
+            place['country']=tweet.place.country
+            place['country_code']=tweet.place.country_code
+            place['full_name']=strip(tweet.place.full_name)
+            place['id']=tweet.place.id
+            place['name']=strip(tweet.place.name)
+            place['place_type']=tweet.place.place_type
+            place['url']=tweet.place.url
+            #print place 
+        if tweet.retweet_count is not None:
+            #print tweet.retweet_count
+            retweet_count=tweet.retweet_count
+        if tweet.retweeted is not None:
+            #print tweet.retweeted
+            retweeted=tweet.retweeted
+        if tweet.source is not None:
+            #print tweet.source
+            source=tweet.source
+        if tweet.text is not None:
+            #print tweet.text
+            text=strip(tweet.text)
+        if place['name']!='' and filtro(lang, place['name']): 
+         
+            output = ','.join([text, str(coordinate['x']), str(coordinate['y']), coordinate['type'], str(created_at), str(created_at.weekday()), str(created_at.month), str(created_at.day), str(created_at.hour), str(entities), str(favorited_count), str(favorited), filter_level, str(tweet_id), str(tweet_id_str), str(in_reply_to_name), str(in_reply), str(in_reply_to_id ), in_reply_to_id_str, str(in_reply_to_user_id), in_reply_to_user_id_str, lang, place['country'], place['country_code'], place['full_name'], str(place['id']), place['name'], place['place_type'], place['url'], str(retweet_count), str(retweeted), source, str(user['statuses_count']), str(user['favourites_count']), user['name'], str(user['verified']), str(user['followers_count']), user['screen_name'], str(user['friends_count']), user['lang'], str(user['created_at'])])
+            write_db('db_tweets.csv',output+termos(text))           
         
         
+    
 def main():
     auth = OAuthHandler(ckey, csecret)
     auth.set_access_token(atoken, asecret)
-    twitterStream = Stream(auth, listener())
-    if not file_exist('db_tweet.csv'):
-        cabecalho('db_tweet.csv')
-    twitterStream.filter(locations=[-46.825390,-24.008381,-46.364830,-23.357611])
+
+    #if not file_exist('db_tweet.csv'):
+    #    cabecalho('db_tweet.csv')      
+    #twitterStream = Stream(auth, listener())
+
+    #twitterStream.filter(locations=[-46.825390,-24.008381,-46.364830,-23.357611])
+    print "Testes search"
+    api = tweepy.API(auth)
+    if not file_exist('db_tweets.csv'):
+        cabecalho2('db_tweets.csv')         
+    search(api)
+    
+
+    
     #SOUTHWEST primeiro, lon/lat
     #estado de sao paulo location=[-53.109612,-25.250469,-44.160561,-19.779320]
     #cidade de sao paulo -46.825390,-24.008381,-46.364830,-23.357611
