@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Google Maps</title>
+	
+	<style>
+        html, body, #map {
+        height: 98%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+	
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAPDUET0Qt7p2VcSk6JNU1sBSM5jMcmVqUpI7aqV44cW1cEECiThQYkcZUPRJn9vy_TWxWvuLoOfSFBw" type="text/javascript"></script>
+  </head>
+  <body onunload="GUnload()">
+    <div id="map"></div>
+
+
+    <!-- you can use tables or divs for the overall layout -->
+	<center>
+    <form action="#">&nbsp;&nbsp;
+	  Centros: <input type="checkbox" id="centrobox" onclick="boxclick(this,'centro')" />&nbsp;&nbsp;
+	  Trem: <input type="checkbox" id="trembox" onclick="boxclick(this,'trem')" />&nbsp;&nbsp;
+	  Carro: <input type="checkbox" id="carrobox" onclick="boxclick(this,'carro')" />&nbsp;&nbsp;
+	  Onibus: <input type="checkbox" id="busbox" onclick="boxclick(this,'bus')" />&nbsp;&nbsp;
+	  Bicicleta: <input type="checkbox" id="bikebox" onclick="boxclick(this,'bike')" />&nbsp;&nbsp;	
+	  MARCADOR: 	  
+	  <select name="cars" onchange="box2change(this,'marcador')">
+		<option value="markers">Todos</option>
+		<option value="semana1">Semana 1</option>
+		<option value="semana2">Semana 2</option>
+		<option value="semana3">Semana 3</option>
+		<option value="semana4">Semana 4</option>
+		<option value="semana5">Semana 5</option>
+		<option value="semana6">Semana 6</option>	
+		<option value="semana7">Semana 7</option>	
+	  </select>
+	  
+    </form>
+	Termos negativos mais comuns: 
+	1: <label id="lbltipAddedComment1">nenhum</label>	
+	2: <label id="lbltipAddedComment2">nenhum</label>
+	3: <label id="lbltipAddedComment3">nenhum</label>
+	4: <label id="lbltipAddedComment4">nenhum</label>
+	5: <label id="lbltipAddedComment5">nenhum</label>
+	6: <label id="lbltipAddedComment6">nenhum</label>
+	7: <label id="lbltipAddedComment7">nenhum</label>
+	8: <label id="lbltipAddedComment8">nenhum</label>
+	9: <label id="lbltipAddedComment9">nenhum</label>
+
+    <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b> 
+      However, it seems JavaScript is either disabled or not supported by your browser. 
+      To view Google Maps, enable JavaScript by changing your browser options, and then 
+      try again.
+    </noscript>
+
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    if (GBrowserIsCompatible()) {
+      var gmarkers = [];
+      var gicons = [];
+
+      var baseIcon = new GIcon(G_DEFAULT_ICON);
+      baseIcon.iconAnchor = new GPoint(9,34);
+      baseIcon.iconSize = new GSize(30,30);
+      baseIcon.infoWindowAnchor = new GPoint(9,2);
+
+
+      gicons["theatre"] = new GIcon(baseIcon,"colour086.png");
+      gicons["golf"] = new GIcon(baseIcon,"colour108.png");
+      gicons["info"] = new GIcon(baseIcon,"colour125.png");
+
+      // A function to create the marker and set up the event window
+      function createMarker(point,name,html,category, icone) {
+        var marker = new GMarker(point,new GIcon(baseIcon,"images/"+icone));
+        // === Store the category and name info as a marker properties ===
+        marker.mycategory = category;                                 
+        marker.myname = name;
+        GEvent.addListener(marker, "click", function() {
+          marker.openInfoWindowHtml(html);
+        });
+        gmarkers.push(marker);
+        return marker;
+      }
+
+      // == shows all markers of a particular category, and ensures the checkbox is checked ==
+      function show(category) {
+        for (var i=0; i<gmarkers.length; i++) {
+          if (gmarkers[i].mycategory == category) {
+            gmarkers[i].show();
+          }
+        }
+        // == check the checkbox ==
+        document.getElementById(category+"box").checked = true;
+      }
+	  
+	  
+
+      // == hides all markers of a particular category, and ensures the checkbox is cleared ==
+      function hide(category) {
+        for (var i=0; i<gmarkers.length; i++) {
+          if (gmarkers[i].mycategory == category) {
+            gmarkers[i].hide();
+          }
+        }
+        // == clear the checkbox ==
+        document.getElementById(category+"box").checked = false;
+        // == close the info window, in case its open on a marker that we just hid
+        map.closeInfoWindow();
+      }
+
+      // == a checkbox has been clicked ==
+      function boxclick(box,category) {
+        if (box.checked) {
+          show(category);
+        } else {
+          hide(category);
+        }
+        // == rebuild the side bar
+        makeSidebar();
+      }
+
+	        // == a checkbox has been clicked ==
+      function box2change(box,category) {
+		//alert(box.value);
+		map.clearOverlays() ;
+	    carregaBordas();
+        carregaMarcadores(box.value+".xml");
+      }
+	  
+      function myclick(i) {
+        GEvent.trigger(gmarkers[i],"click");
+      }
+	  
+	function mode(array)
+	{
+		if(array.length == 0)
+			return null;
+		var modeMap = {};
+		var maxEl = array[0], maxCount = 1;
+		for(var i = 0; i < array.length; i++)
+		{
+			var el = array[i];
+			if(modeMap[el] == null)
+				modeMap[el] = 1;
+			else
+				modeMap[el]++;	
+			if(modeMap[el] >= maxCount)
+			{
+				maxEl = el;
+				maxCount = modeMap[el];
+			}
+		}
+		return maxEl;
+	}
+	  
+	  
+
+
+
+      // == rebuilds the sidebar to match the markers currently displayed ==
+      function makeSidebar() {
+        var html = "";
+        for (var i=0; i<gmarkers.length; i++) {
+          if (!gmarkers[i].isHidden()) {
+            html += '<a href="javascript:myclick(' + i + ')">' + gmarkers[i].myname + '<\/a><br>';
+          }
+        }
+        document.getElementById("side_bar").innerHTML = html;
+      }
+	  
+	  function updateTermos(){
+		document.getElementById('lbltipAddedComment1').innerHTML = termosmais[0];
+		document.getElementById('lbltipAddedComment2').innerHTML = termosmais[1];
+		document.getElementById('lbltipAddedComment3').innerHTML = termosmais[2];
+		document.getElementById('lbltipAddedComment4').innerHTML = termosmais[3];
+		document.getElementById('lbltipAddedComment5').innerHTML = termosmais[4];
+		document.getElementById('lbltipAddedComment6').innerHTML = termosmais[5];
+		document.getElementById('lbltipAddedComment7').innerHTML = termosmais[6];
+		document.getElementById('lbltipAddedComment8').innerHTML = termosmais[7];
+		document.getElementById('lbltipAddedComment9').innerHTML = termosmais[8];
+	  
+	  }
+	  
+	  function ranking(ttermos,clus) {
+		
+		
+		for (var k=0; k<9; k++) {
+		var x=1;
+		var j=0;
+		var vet=[];
+		
+			for (var i=0; i<ttermos.length; i++) {
+			  if (clus[i]==k) {
+				vet[j]=ttermos[i];
+				j=j+1;
+				x=1;
+			  }
+			}
+		termosmais[k]=mode(vet);
+		
+		}
+		//alert(termosmais);
+		updateTermos();
+		return x;
+	  }
+	  
+      // Read the data
+	  function carregaMarcadores(arq) {
+	  //alert("stuffer");
+	  
+      GDownloadUrl(arq, function(doc) {
+        var xmlDoc = GXml.parse(doc);
+        var markers = xmlDoc.documentElement.getElementsByTagName("marker");
+         
+		todostermos=[];
+		clusters=[];
+        for (var i = 0; i < markers.length; i++) {
+          // obtain the attribues of each marker
+          var lat = parseFloat(markers[i].getAttribute("lat"));
+          var lng = parseFloat(markers[i].getAttribute("lng"));
+          var point = new GLatLng(lat,lng);
+          var address = "";
+          var name = markers[i].getAttribute("text");
+          var html = "<b>"+name+"<\/b><p>"+address;
+          var category = markers[i].getAttribute("categoria");
+		  var icone = markers[i].getAttribute("icone");
+		  var cluster = markers[i].getAttribute("cluster");
+          // create the marker
+          var marker = createMarker(point,name,html,category,icone);
+          map.addOverlay(marker);
+		  todostermos[i]=name;
+		  clusters[i]=cluster;
+        }
+		ranking(todostermos,clusters);
+
+        // == show or hide the categories initially ==
+        show("centro");
+        hide("carro");
+        hide("trem");
+		hide("bus");
+		hide("bike");
+        // == create the initial sidebar ==
+        makeSidebar();
+      });
+	}
+	
+	function carregaBordas(){
+	      // Read the data plot lines
+      GDownloadUrl("linhas.xml", function(doc) {
+        var xmlDoc2 = GXml.parse(doc);
+        var lines = xmlDoc2.documentElement.getElementsByTagName("line");
+		//alert(lines.length);
+        for (var i = 0; i < lines.length; i++) {
+          // obtain the attribues of each marker
+		   var lat1 = parseFloat(lines[i].getAttribute("p1x"));
+           var lng1 = parseFloat(lines[i].getAttribute("p1y"));
+           var lat2 = parseFloat(lines[i].getAttribute("p2x"));
+           var lng2 = parseFloat(lines[i].getAttribute("p2y"));
+          // create the marker
+		  var polyline = new GPolyline([
+				new GLatLng(lat1, lng1),
+				new GLatLng(lat2, lng2),
+				], "#FF0000", 1);
+			map.addOverlay(polyline);
+        }
+      });
+	
+	}
+
+
+      // create the map
+      var map = new GMap2(document.getElementById("map"));
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GMapTypeControl());
+      map.setCenter(new GLatLng(-23.5536,-46.6428), 11);
+	  
+	  var todostermos=[]
+	  var clusters=[]
+	  var termosmais = []
+
+	  map.clearOverlays() ;
+	  carregaBordas();
+	  carregaMarcadores("markers.xml");
+
+
+
+
+    }
+
+    else {
+      alert("Sorry, the Google Maps API is not compatible with this browser");
+    }
+    // This Javascript is based on code provided by the
+    // Community Church Javascript Team
+    // http://www.bisphamchurch.org.uk/   
+    // http://econym.org.uk/gmap/
+
+    //]]>
+    </script>
+  </body>
+
+</html>

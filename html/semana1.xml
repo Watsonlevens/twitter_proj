@@ -1,0 +1,140 @@
+<markers>
+  <marker lat="-23.625" lng="-46.6377" text="Centro 1" categoria="centro" icone="1.png" cluster="1"/>
+  <marker lat="-23.5036" lng="-46.6727" text="Centro 2" categoria="centro" icone="2.png" cluster="2"/>
+  <marker lat="-23.4765" lng="-46.7327" text="Centro 3" categoria="centro" icone="3.png" cluster="3"/>
+  <marker lat="-23.583" lng="-46.7129" text="Centro 4" categoria="centro" icone="4.png" cluster="4"/>
+  <marker lat="-23.5855" lng="-46.5726" text="Centro 5" categoria="centro" icone="5.png" cluster="5"/>
+  <marker lat="-23.5373" lng="-46.479" text="Centro 6" categoria="centro" icone="6.png" cluster="6"/>
+  <marker lat="-23.6867" lng="-46.7239" text="Centro 7" categoria="centro" icone="7.png" cluster="7"/>
+  <marker lat="-23.5536" lng="-46.6428" text="Centro 8" categoria="centro" icone="8.png" cluster="8"/>
+  <marker lat="-23.514" lng="-46.5911" text="Centro 9" categoria="centro" icone="9.png" cluster="9"/>
+  <marker lat="-23.49886629" lng="-46.52104629" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.5715861" lng="-46.5561357" text="t_lotado" categoria="trem" icone="trem.png" cluster="4"/>
+  <marker lat="-23.627045" lng="-46.7490238" text="t_cheio" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.73815695" lng="-46.69469718" text="t_demora" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.7362493" lng="-46.7041619" text="t_cheio" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.4879825" lng="-46.630714" text="t_lotado" categoria="trem" icone="trem.png" cluster="1"/>
+  <marker lat="-23.5324237" lng="-46.5384599" text="t_cheio" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.66327499" lng="-46.7108202" text="t_demora" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.54223743" lng="-46.47152067" text="t_cheio" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.4804055" lng="-46.7356897" text="t_lotado" categoria="trem" icone="trem.png" cluster="2"/>
+  <marker lat="-23.5482624" lng="-46.6409268" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.54166758" lng="-46.44806332" text="t_greve" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.7439768" lng="-46.6734164" text="t_lotado" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.5474128" lng="-46.4459322" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.5439297" lng="-46.4099408" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.7317228" lng="-46.6828966" text="t_lotado" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.5410932" lng="-46.4143764" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.49440339" lng="-46.71962794" text="t_cheio" categoria="trem" icone="trem.png" cluster="2"/>
+  <marker lat="-23.5737016" lng="-46.6986599" text="t_lotado" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.5307071" lng="-46.5443677" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.52904848" lng="-46.74488152" text="t_lotado" categoria="trem" icone="trem.png" cluster="2"/>
+  <marker lat="-23.51290255" lng="-46.42887063" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.54526147" lng="-46.61636353" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.54526147" lng="-46.61636353" text="t_demora" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.59311448" lng="-46.58986174" text="t_problema linha" categoria="trem" icone="trem.png" cluster="4"/>
+  <marker lat="-23.6739561" lng="-46.71923906" text="t_lotado" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.54724278" lng="-46.68798496" text="t_lotado" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.5569776" lng="-46.661007" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.6237483" lng="-46.7048281" text="t_lotado" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.54278897" lng="-46.58891552" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.6991667" lng="-46.6835452" text="t_cheio" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.57445381" lng="-46.59705294" text="t_cheio" categoria="trem" icone="trem.png" cluster="4"/>
+  <marker lat="-23.5135506" lng="-46.6250029" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.7225643" lng="-46.69170599" text="t_cheio" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.5956097" lng="-46.62131" text="t_lotado" categoria="trem" icone="trem.png" cluster="0"/>
+  <marker lat="-23.5956097" lng="-46.62131" text="t_demora" categoria="trem" icone="trem.png" cluster="0"/>
+  <marker lat="-23.677784" lng="-46.701915" text="t_lotado" categoria="trem" icone="trem.png" cluster="6"/>
+  <marker lat="-23.5582995" lng="-46.6534552" text="t_demora" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.5343162" lng="-46.6548289" text="t_cheio" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.56725256" lng="-46.54838788" text="t_lotado" categoria="trem" icone="trem.png" cluster="4"/>
+  <marker lat="-23.5343867" lng="-46.5522559" text="t_cheio" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.5382235" lng="-46.4916785" text="t_cheio" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.5559996" lng="-46.668271" text="t_cheio" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.54227141" lng="-46.47100925" text="t_cheio" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.6259121" lng="-46.6390532" text="t_lotado" categoria="trem" icone="trem.png" cluster="0"/>
+  <marker lat="-23.54112462" lng="-46.47860924" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.5436131" lng="-46.6342418" text="t_cheio" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.5403777" lng="-46.5850758" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.51913124" lng="-46.56759312" text="t_cheio" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.5438395" lng="-46.597478" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.54351992" lng="-46.59225368" text="t_demora" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.5376596" lng="-46.5635152" text="t_cheio" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.640151" lng="-46.6425167" text="t_demora" categoria="trem" icone="trem.png" cluster="0"/>
+  <marker lat="-23.5329224" lng="-46.5426207" text="t_demora" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.58057391" lng="-46.64039958" text="t_demora" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.4921204" lng="-46.6172625" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.54428774" lng="-46.64291739" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.54795878" lng="-46.64335663" text="t_cheio" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.5455697" lng="-46.6119794" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.56328618" lng="-46.63989241" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.55578567" lng="-46.70076119" text="t_lotado" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.5291071" lng="-46.5352559" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.60810679" lng="-46.74359327" text="t_lotado" categoria="trem" icone="trem.png" cluster="3"/>
+  <marker lat="-23.49851535" lng="-46.68995255" text="t_lotado" categoria="trem" icone="trem.png" cluster="1"/>
+  <marker lat="-23.5814281" lng="-46.6378933" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.5222302" lng="-46.5159982" text="t_lotado" categoria="trem" icone="trem.png" cluster="5"/>
+  <marker lat="-23.4969954" lng="-46.6323368" text="t_lotado" categoria="trem" icone="trem.png" cluster="1"/>
+  <marker lat="-23.48700148" lng="-46.61329755" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.52457374" lng="-46.65851528" text="t_problema linha" categoria="trem" icone="trem.png" cluster="1"/>
+  <marker lat="-23.55209141" lng="-46.65739569" text="t_lotado" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.55209141" lng="-46.65739569" text="t_demora" categoria="trem" icone="trem.png" cluster="7"/>
+  <marker lat="-23.47993685" lng="-46.60348892" text="t_lotado" categoria="trem" icone="trem.png" cluster="8"/>
+  <marker lat="-23.51069939" lng="-46.70449304" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="1"/>
+  <marker lat="-23.7973028" lng="-46.7459829" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="6"/>
+  <marker lat="-23.50167506" lng="-46.49377869" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="5"/>
+  <marker lat="-23.60529272" lng="-46.69444791" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="3"/>
+  <marker lat="-23.6985489" lng="-46.6299506" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="0"/>
+  <marker lat="-23.61152033" lng="-46.68152138" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="3"/>
+  <marker lat="-23.55298822" lng="-46.54097469" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="4"/>
+  <marker lat="-23.4572799" lng="-46.6748298" text="c_atropelamento" categoria="carro" icone="carro.png" cluster="1"/>
+  <marker lat="-23.50299664" lng="-46.62392677" text="o_lotado" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.65112454" lng="-46.74142809" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.49987311" lng="-46.58517357" text="o_cheio" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.6474693" lng="-46.7362332" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.56840906" lng="-46.58380427" text="o_demora" categoria="bus" icone="bus.png" cluster="4"/>
+  <marker lat="-23.5927172" lng="-46.734988" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.5770179" lng="-46.7420563" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.5725661" lng="-46.6241797" text="o_cheio" categoria="bus" icone="bus.png" cluster="7"/>
+  <marker lat="-23.5951208" lng="-46.4501894" text="o_lotado" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.5607597" lng="-46.4935318" text="o_cheio" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.589927" lng="-46.7234918" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.4952017" lng="-46.4512008" text="o_lotado" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.6763145" lng="-46.7124057" text="o_demora" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.5960659" lng="-46.7478512" text="o_demora" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.65460412" lng="-46.67980534" text="o_lotado" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.6325036" lng="-46.7714405" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.62452136" lng="-46.60146558" text="o_lotado" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.58314399" lng="-46.53528705" text="o_lotado" categoria="bus" icone="bus.png" cluster="4"/>
+  <marker lat="-23.5042927" lng="-46.439692" text="o_demora" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.7174931" lng="-46.7005833" text="o_demora" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.5027011" lng="-46.6238091" text="o_cheio" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.4859118" lng="-46.5698299" text="o_lotado" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.56881494" lng="-46.4757313" text="o_lotado" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.57397641" lng="-46.72657585" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.66874994" lng="-46.6642609" text="o_lotado" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.5677125" lng="-46.6844242" text="o_demora" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.7331394" lng="-46.6978181" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.44809946" lng="-46.72603841" text="o_cheio" categoria="bus" icone="bus.png" cluster="2"/>
+  <marker lat="-23.6248982" lng="-46.6150392" text="o_demora" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.7523467" lng="-46.7090854" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.5891449" lng="-46.6337546" text="o_cheio" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.4768565" lng="-46.6504904" text="o_demora" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.4642059" lng="-46.6511755" text="o_lotado" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.5541234" lng="-46.6004284" text="o_cheio" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.4922389" lng="-46.6343522" text="o_lotado" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.4696586" lng="-46.655534" text="o_lotado" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.5797745" lng="-46.7445569" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.5339825" lng="-46.7018944" text="o_lotado" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.4721752" lng="-46.6301293" text="o_lotado" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.64528674" lng="-46.67309216" text="o_lotado" categoria="bus" icone="bus.png" cluster="0"/>
+  <marker lat="-23.6224278" lng="-46.6967061" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.5599212" lng="-46.4988177" text="o_demora" categoria="bus" icone="bus.png" cluster="5"/>
+  <marker lat="-23.4838747" lng="-46.687366" text="o_cheio" categoria="bus" icone="bus.png" cluster="1"/>
+  <marker lat="-23.5798502" lng="-46.7109441" text="o_lotado" categoria="bus" icone="bus.png" cluster="3"/>
+  <marker lat="-23.527058" lng="-46.5959889" text="o_demora" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.4828408" lng="-46.5898336" text="o_lotado" categoria="bus" icone="bus.png" cluster="8"/>
+  <marker lat="-23.67587574" lng="-46.78683278" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.6443048" lng="-46.7333822" text="o_lotado" categoria="bus" icone="bus.png" cluster="6"/>
+  <marker lat="-23.58844668" lng="-46.65608164" text="b_sem ciclovia" categoria="bike" icone="bike.png" cluster="7"/>
+</markers>
